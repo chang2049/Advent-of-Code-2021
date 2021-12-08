@@ -24,14 +24,8 @@ public class Day01Service {
 
     public long getAnswerForQuestion2() throws IOException {
         List<Integer> data = loadData();
-//        long[] threeSumVal = IntStream.range(2,data.size()).mapToLong(i-> i>2?data.get(i)+data.get(i-1)+data.get(i-3):data.get(i)+data.get(i-1)+data.get(i-2)).toArray();
         int[] threeSumVal = new int[data.size()-2];
-        for(int i = 0, sum = 0; i<data.size(); i++){
-            sum = i<3?sum+data.get(i):sum+data.get(i)-data.get(i-3);
-            if(i>=2){
-                threeSumVal[i-2] = sum;
-            }
-        }
-        return IntStream.range(1,threeSumVal.length).parallel().filter(x-> threeSumVal[x]>threeSumVal[x-1]).count();
+        IntStream.range(0,data.size()-2).forEach(i->threeSumVal[i] = i==0?data.get(i)+data.get(i+1)+data.get(i+2):threeSumVal[i-1]-data.get(i-1)+data.get(i+2));
+        return IntStream.range(1,threeSumVal.length).parallel().filter(x-> threeSumVal[x] > threeSumVal[x-1]).count();
     }
 }
