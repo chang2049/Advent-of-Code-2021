@@ -19,7 +19,7 @@ public class Day02Service {
     List<String> dirctionInstructions;
     List<Integer> stepsInstructions;
 
-    public void loadData() throws IOException {
+    public void loadData(){
         dirctionInstructions = new ArrayList<>();
         stepsInstructions = new ArrayList<>();
         this.fileHelper.loadContent(2).forEach(str->{
@@ -29,14 +29,14 @@ public class Day02Service {
         });
     }
 
-    public int getAnswerForQuestion1() throws IOException {
+    public int getAnswerForQuestion1(){
         loadData();
         int[] location = new int[]{0,0};
         IntStream.range(0,dirctionInstructions.size()).forEach(i->calculateLocation(location,directions.get(dirctionInstructions.get(i)),stepsInstructions.get(i)));
         return location[0]*location[1];
     }
 
-    public int getAnswerForQuestion2() throws IOException {
+    public int getAnswerForQuestion2(){
         loadData();
         int[] location = new int[]{0,0};
         AtomicInteger depth = new AtomicInteger(0);

@@ -10,21 +10,26 @@ import java.util.stream.Collectors;
 
 @Repository
 public class FileHelper {
-    public List<String> loadContent(int dayCount) throws IOException {
+    public List<String> loadContent(int dayCount) {
         String dayCountStr = String.valueOf(dayCount);
         String fileName = (dayCountStr.length()>1?dayCountStr:"0"+dayCountStr) +".txt";
         return readFile(fileName);
     }
 
-    public List<String> loadContent(int dayCount, int partCount) throws IOException {
+    public List<String> loadContent(int dayCount, int partCount){
         String dayCountStr = String.valueOf(dayCount);
         String fileName = (dayCountStr.length()>1?dayCountStr:"0"+dayCountStr) +"-"+partCount+".txt";
         return readFile(fileName);
     }
 
-    public List<String> readFile(String fileName) throws IOException {
+    public List<String> readFile(String fileName){
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(fileName);
-        return IOUtils.readLines(is, "UTF-8");
+        try {
+            return IOUtils.readLines(is, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static List<Integer> convertStringToIntList(List<String> list){

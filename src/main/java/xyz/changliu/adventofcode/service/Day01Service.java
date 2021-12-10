@@ -13,16 +13,16 @@ public class Day01Service {
     @Autowired
     FileHelper fileHelper;
 
-    public List<Integer> loadData() throws IOException {
+    public List<Integer> loadData(){
         return fileHelper.convertStringToIntList(fileHelper.loadContent(1));
     }
 
-    public long getAnswerForQuestion1() throws IOException {
+    public long getAnswerForQuestion1(){
         List<Integer> data = loadData();
         return IntStream.range(1,data.size()).parallel().filter(x-> data.get(x) > data.get(x - 1)).count();
     }
 
-    public long getAnswerForQuestion2() throws IOException {
+    public long getAnswerForQuestion2(){
         List<Integer> data = loadData();
         int[] threeSumVal = new int[data.size()-2];
         IntStream.range(0,data.size()-2).forEach(i->threeSumVal[i] = i==0?data.get(i)+data.get(i+1)+data.get(i+2):threeSumVal[i-1]-data.get(i-1)+data.get(i+2));
